@@ -1,29 +1,30 @@
 package com.example.cobragas;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class GasMapActivity extends AppCompatActivity {
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
+public class GasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_main);
         initListButton();
         initMapButton();
         initSettingsButton();
     }
-
     private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GasMapActivity.this, GasActivity.class);
+                Intent intent = new Intent(GasActivity.this, GasActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
@@ -36,7 +37,7 @@ public class GasMapActivity extends AppCompatActivity {
         ibMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GasMapActivity.this, GasMapActivity.class);
+                Intent intent = new Intent(GasActivity.this, GasMapActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
@@ -49,7 +50,7 @@ public class GasMapActivity extends AppCompatActivity {
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GasMapActivity.this, GasSettingsActivity.class);
+                Intent intent = new Intent(GasActivity.this, GasSettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
