@@ -44,130 +44,207 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/RelativeHeader"
+                android:id="@+id/RelativePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativeAddress">
+
+                <ImageButton
+                    android:id="@+id/phoneImageContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/phone_icon" />
+
+                <EditText
+                    android:id="@+id/editCell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/phoneImageContact"
+                    android:ems="7"
+                    android:hint="(800)-555-5555"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="14"
+                    android:minWidth="250dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeGasName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/editName"
+                <ImageButton
+                    android:id="@+id/gasImageContact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_toEndOf="@id/imageContact"
-                    android:layout_toRightOf="@id/imageContact"
-                    android:ems="14"
-                    android:hint="Gas Station Name:"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords">
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/gas_station_template" />
 
-                    <requestFocus />
-                </EditText>
+                <EditText
+                    android:id="@+id/editGasName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/gasImageContact"
+                    android:hint="Gas Station Name"
+                    android:minWidth="250dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RelativePhone">
+
+                <EditText
+                    android:id="@+id/editDiesel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignStart="@id/textDiesel"
+                    android:layout_alignBottom="@id/editRegular"
+                    android:layout_marginStart="-11dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="0dp"
+                    android:ems="3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberSigned"
+                    android:maxLength="5"
+                    tools:layout_below="@id/textDiesel" />
+
+                <EditText
+                    android:id="@+id/editPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignStart="@id/textPremium"
+                    android:layout_alignBottom="@id/editRegular"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="15dp"
+                    android:ems="3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberSigned"
+                    android:maxLength="5"
+                    tools:layout_below="@id/textPremium" />
+
+                <EditText
+                    android:id="@+id/editRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@id/coinImageContact"
+                    android:layout_alignStart="@id/textRegular"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="15dp"
+                    android:ems="3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberSigned"
+                    android:maxLength="5"
+                    tools:layout_below="@id/textRegular" />
+
+                <TextView
+                    android:id="@+id/textDiesel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/textPremium"
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/textPremium"
+                    android:text="Diesel" />
+
+                <TextView
+                    android:id="@+id/textPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/coinImageContact"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="43dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/textRegular"
+                    android:text="Premium" />
+
+                <TextView
+                    android:id="@+id/textRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/coinImageContact"
+                    android:layout_alignBottom="@id/textPremium"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/coinImageContact"
+                    android:text="Regular" />
 
                 <ImageButton
-                    android:id="@+id/imageContact"
+                    android:id="@+id/coinImageContact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentEnd="false"
-                    android:layout_alignParentBottom="false"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="38dp"
-                    android:layout_toLeftOf="@id/editName"
-                    android:src="@drawable/gas_station_template" />
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/coin_icon" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/RelativeAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/RelativeHeader">
-
-                <TextView
-                    android:id="@+id/textAddress"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Address:" />
-
-                <EditText
-                    android:id="@+id/editAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:ems="15"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords" />
-
-                <EditText
-                    android:id="@+id/editCity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:ems="8"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:nextFocusDown="@+id/editState" />
+                android:layout_below="@+id/RelativeGasName">
 
                 <EditText
                     android:id="@+id/editState"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@id/editCity"
+                    android:layout_marginLeft="1dp"
+                    android:layout_toRightOf="@id/editCity"
                     android:ems="2"
+                    android:hint="ST"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
-                    android:maxLength="2"
-                    android:nextFocusDown="@+id/editZipCode" />
+                    android:maxLength="2" />
 
                 <EditText
-                    android:id="@+id/editZipcode"
+                    android:id="@+id/editCity"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/editStreet"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/locationImageContact"
+                    android:hint="City"
+                    android:minWidth="150dp" />
+
+                <EditText
+                    android:id="@+id/editZip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/editStreet"
+                    android:layout_alignBottom="@id/editState"
+                    android:layout_toRightOf="@id/editState"
                     android:ems="5"
+                    android:hint="Zip"
                     android:imeOptions="actionNext"
                     android:inputType="numberSigned"
-                    android:maxLength="5"
-                    android:nextFocusDown="@+id/editHome" />
-            </RelativeLayout>
+                    android:maxLength="5" />
 
-
-            <RelativeLayout
-                android:id="@+id/RelativeCell"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/RelativeAddress">
+                <ImageButton
+                    android:id="@+id/locationImageContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/address_icon" />
 
                 <EditText
-                    android:id="@+id/editCell"
+                    android:id="@+id/editStreet"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="53dp"
-                    android:layout_marginLeft="53dp"
-                    android:layout_marginBottom="0dp"
-                    android:ems="7"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/locationImageContact"
+                    android:hint="Street"
+                    android:ems="15"
                     android:imeOptions="actionNext"
-                    android:inputType="phone"
-                    android:maxLength="14"
-                    android:nextFocusDown="@+id/editEMail" />
-
-                <TextView
-                    android:id="@+id/textCell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Cell Phone:" />
-
+                    android:inputType="textCapWords" />
             </RelativeLayout>
 
 
