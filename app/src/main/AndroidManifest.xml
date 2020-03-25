@@ -19,6 +19,7 @@
         <activity android:name=".GasActivity"/>
         <activity android:name=".GasSettingsActivity"/>
         <activity android:name=".GasListActivity"/>
+        <activity android:name=".GasLogin"/>
 
     </application>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GasActivity">
+    tools:context="com.example.cobragas.GasActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -15,6 +15,14 @@
         android:layout_alignParentTop="true">
 
 
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="157dp"
+            android:text="login" />
+
         <ToggleButton
             android:id="@+id/toggleButtonEdit"
             android:layout_width="wrap_content"
@@ -22,7 +30,7 @@
             android:text="ToggleButton" />
 
         <Button
-            android:id="@+id/buttonSave"
+            android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
