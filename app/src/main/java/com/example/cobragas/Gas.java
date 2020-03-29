@@ -1,5 +1,7 @@
 package com.example.cobragas;
 
+import android.graphics.Bitmap;
+
 import java.sql.Blob;
 
 public class Gas {
@@ -13,7 +15,7 @@ public class Gas {
         private String rPrice;
         private String pPrice;
         private String dPrice;
-        private Blob icon;
+        private Bitmap icon;
 
 
         public Gas() {
@@ -81,11 +83,11 @@ public class Gas {
             return dPrice;
         }
 
-    public Blob getIcon() {
+    public Bitmap getIcon() {
         return icon;
     }
 
-    public void setIcon(Blob icon) {
+    public void setIcon(Bitmap icon) {
         this.icon = icon;
     }
 }
