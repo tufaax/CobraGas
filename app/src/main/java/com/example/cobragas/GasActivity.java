@@ -2,6 +2,7 @@ package com.example.cobragas;
 
 import android.app.Application;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -41,7 +42,7 @@ public class GasActivity extends AppCompatActivity {
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GasActivity.this, GasActivity.class);
+                Intent intent = new Intent(GasActivity.this, GasListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
@@ -149,10 +150,11 @@ public class GasActivity extends AppCompatActivity {
                 }
                 catch (Exception e) {
                     wasSuccessful = false;
+                    Log.w("Not Working","hi");
                 }
 
                 if (wasSuccessful) {
-                    Log.w(GasDBHelper.class.getName(), currentStation.getContactName());
+                    Log.w(GasDBHelper.class.getName(), currentStation.getStationName());
                     ToggleButton editToggle = (ToggleButton) findViewById(R.id.toggleButtonEdit);
                     editToggle.toggle();
                     setForEditing(false);
@@ -170,7 +172,7 @@ public class GasActivity extends AppCompatActivity {
         etStationName.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                currentStation.setContactName(etStationName.getText().toString());
+                currentStation.setStationName(etStationName.getText().toString());
             }
 
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
