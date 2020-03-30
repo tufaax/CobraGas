@@ -50,7 +50,7 @@ public class GasDataSource {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 c.getIcon().compress(Bitmap.CompressFormat.PNG, 100, baos);
                 byte[] photo = baos.toByteArray();
-                initialValues.put("contactphoto", photo);
+                initialValues.put("icon", photo);
             }
 
             didSucceed = database.insert("stations", null, initialValues) > 0;
