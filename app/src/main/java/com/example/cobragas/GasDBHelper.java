@@ -8,8 +8,8 @@ import android.util.Log;
 
 
 public class GasDBHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "cobragas.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "stations.db";
+    private static final int DATABASE_VERSION = 2;
 
     // Database creation sql statement
     private static final String CREATE_TABLE_STATIONS =

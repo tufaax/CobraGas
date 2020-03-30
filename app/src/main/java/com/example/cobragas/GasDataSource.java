@@ -36,7 +36,7 @@ public class GasDataSource {
         try {
             ContentValues initialValues = new ContentValues();
 
-            initialValues.put("stationname", c.getStationID());
+            initialValues.put("stationname", c.getStationName());
             initialValues.put("streetaddress", c.getStreetAddress());
             initialValues.put("city", c.getCity());
             initialValues.put("state", c.getState());
@@ -69,7 +69,7 @@ public class GasDataSource {
             Long rowId = Long.valueOf(c.getStationID());
             ContentValues updateValues = new ContentValues();
 
-            updateValues.put("stationname", c.getStationID());
+            updateValues.put("stationname", c.getStationName());
             updateValues.put("streetaddress", c.getStreetAddress());
             updateValues.put("city", c.getCity());
             updateValues.put("state", c.getState());
@@ -104,6 +104,75 @@ public class GasDataSource {
         return lastId;
     }
 
+    public boolean deleteGas(int gasId) {
+        boolean didDelete = false;
+        try {
+            didDelete = database.delete("stations", "_id=" + gasId, null) > 0;
+        }
+        catch (Exception e) {
+            //Do nothing -return value already set to false
+        }
+        return didDelete;
+    }
+
+    public ArrayList<Gas> getStations(String sortField, String sortOrder) {
+
+        ArrayList<Gas> gases = new ArrayList<Gas>();
+        try {
+            String query = "SELECT * FROM stations ORDER BY " + sortField + " " + sortOrder;
+            Cursor cursor = database.rawQuery(query, null);
+
+            Gas newStation;
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                newStation = new Gas();
+                newStation.setStationID(cursor.getInt(0));
+                newStation.setStationName(cursor.getString(1));
+                newStation.setStreetAddress(cursor.getString(2));
+                newStation.setCity(cursor.getString(3));
+                newStation.setState(cursor.getString(4));
+                newStation.setZipCode(cursor.getString(5));
+                newStation.setPhoneNumber(cursor.getString(6));
+                gases.add(newStation);
+                cursor.moveToNext();
+
+            }
+            cursor.close();
+        }
+        catch (Exception e){
+            gases = new ArrayList<Gas>();
+        }
+        return gases;
+    }
+
+    public Gas getSpecificStation(int stationId){
+        Gas contact = new Gas();
+
+        String query = "SELECT * FROM stations WHERE _id =" + stationId;
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            contact.setStationID(cursor.getInt(0));
+            contact.setStationName(cursor.getString(1));
+            contact.setStreetAddress(cursor.getString(2));
+            contact.setCity(cursor.getString(3));
+            contact.setState(cursor.getString(4));
+            contact.setZipCode(cursor.getString(5));
+            contact.setPhoneNumber(cursor.getString(6));
+
+
+            byte[] photo = cursor.getBlob(11);
+            if(photo != null) {
+                ByteArrayInputStream imageStream = new ByteArrayInputStream(photo);
+                Bitmap thePicture = BitmapFactory.decodeStream(imageStream);
+               // contact.setPicture(thePicture);
+            }
+
+            cursor.close();
+        }
+        return contact;
+    }
 
 
 }

@@ -98,18 +98,18 @@ public class GasSettingsActivity extends AppCompatActivity {
         if(sortColor.equalsIgnoreCase("red")){
             red.setChecked(true);
             ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
-            settings.setBackgroundColor(getResources().getColor(R.color.rb_red));
+            //settings.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
 
         else if (sortColor.equalsIgnoreCase("blue")) {
             blue.setChecked(true);
             ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
-            settings.setBackgroundColor(getResources().getColor(R.color.rb_blue));
+            settings.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
         else if (sortColor.equalsIgnoreCase("default")) {
             Default.setChecked(true);
             ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
-            settings.setBackgroundColor(getResources().getColor(R.color.rb_default));
+            settings.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
     private void initSortByClick() {

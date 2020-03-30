@@ -3,6 +3,7 @@ package com.example.cobragas;
 import android.graphics.Bitmap;
 
 import java.sql.Blob;
+import java.util.Calendar;
 
 public class Gas {
         private int stationID;
@@ -18,20 +19,21 @@ public class Gas {
         private Bitmap icon;
 
 
-        public Gas() {
-            stationID = -1;
-        }
 
-        public int getStationID() {
+    public Gas() {
+        stationID = -1;
+    }
+
+    public int getStationID() {
             return stationID;
         }
         public void setStationID(int i) {
             stationID = i;
         }
-        public String getContactName() {
+        public String getStationName() {
             return stationName;
         }
-        public void setContactName(String s) {
+        public void setStationName(String s) {
             stationName = s;
         }
         public String getStreetAddress() {
@@ -90,4 +92,5 @@ public class Gas {
     public void setIcon(Bitmap icon) {
         this.icon = icon;
     }
+
 }
