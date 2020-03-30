@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="c">
+        android:background="#865252">
 
         <ImageButton
             android:id="@+id/imageButtonList"
@@ -42,4 +42,10 @@
             android:layout_toEndOf="@+id/imageButtonMap"
             android:layout_toRightOf="@+id/imageButtonMap" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="listActivity" />
 </RelativeLayout>

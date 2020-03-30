@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GasActivity"/>
+        <activity android:name=".GasSettingsActivity"/>
+        <activity android:name=".GasListActivity"/>
+        <activity android:name=".GasLogin"/>
+
     </application>
 
 </manifest>
