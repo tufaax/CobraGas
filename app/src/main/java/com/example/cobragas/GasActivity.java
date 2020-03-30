@@ -5,22 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
-<<<<<<< HEAD
-=======
+
 import android.widget.Button;
->>>>>>> master
+
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GasActivity extends AppCompatActivity {
-<<<<<<< HEAD
-
 
     private Gas currentStation;
-=======
->>>>>>> master
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +24,11 @@ public class GasActivity extends AppCompatActivity {
         initListButton();
         initMapButton();
         initSettingsButton();
-<<<<<<< HEAD
-=======
+
         initLogin();
->>>>>>> master
+
+        currentStation = new Gas();
+
     }
     private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
@@ -71,8 +68,7 @@ public class GasActivity extends AppCompatActivity {
             }
         });
     }
-<<<<<<< HEAD
-=======
+
     private void initLogin() {
           Button ibLogin = (Button) findViewById(R.id.login);
         ibLogin.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +83,4 @@ public class GasActivity extends AppCompatActivity {
     }
 
 
-
-
-
->>>>>>> master
 }
