@@ -160,14 +160,9 @@ public class GasDataSource {
             contact.setState(cursor.getString(4));
             contact.setZipCode(cursor.getString(5));
             contact.setPhoneNumber(cursor.getString(6));
-
-
-            byte[] photo = cursor.getBlob(11);
-            if(photo != null) {
-                ByteArrayInputStream imageStream = new ByteArrayInputStream(photo);
-                Bitmap thePicture = BitmapFactory.decodeStream(imageStream);
-               // contact.setPicture(thePicture);
-            }
+            contact.setrPrice(cursor.getString(7));
+            contact.setpPrice(cursor.getString(8));
+            contact.setdPrice(cursor.getString(9));
 
             cursor.close();
         }

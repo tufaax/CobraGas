@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
@@ -51,11 +52,18 @@ public class GasActivity extends AppCompatActivity {
     }
 
     private void initMapButton() {
-        ImageButton ibMap = (ImageButton) findViewById(R.id.imageButtonMap);
-        ibMap.setOnClickListener(new View.OnClickListener() {
+        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonMap);
+        ibList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GasActivity.this, GasMapActivity.class);
+                if(currentStation.getStationID() == -1){
+                    Toast.makeText(getBaseContext(), "Contact must be saed before it can be mapped",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    intent.putExtra("stationsid", currentStation.getStationID());
+                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
