@@ -44,15 +44,15 @@ public class GasListActivity extends AppCompatActivity {
         initSettingsButton();
 
 
-        GasDataSource ds = new GasDataSource(this);
+        String sortBy = getSharedPreferences("MySListPreferences",
 
-        String sortBy = getSharedPreferences("MyContactListPreferences",
+                Context.MODE_PRIVATE).getString("sortfield", "stationname");
 
-                Context.MODE_PRIVATE).getString("sortfield", "contactname");
-
-        String sortOrder = getSharedPreferences("MyContactListPreferences",
+        String sortOrder = getSharedPreferences("MySListPreferences",
 
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
+
+        GasDataSource ds = new GasDataSource(this);
 
         try{
             ds.open();
@@ -64,7 +64,7 @@ public class GasListActivity extends AppCompatActivity {
 
         }
         catch(Exception e){
-            Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error retrieving Stationss", Toast.LENGTH_LONG).show();
         }
 
 
@@ -93,15 +93,17 @@ public class GasListActivity extends AppCompatActivity {
 
         super.onResume();
 
-        GasDataSource ds = new GasDataSource(this);
 
-        String sortBy = getSharedPreferences("MyContactListPreferences",
+
+        String sortBy = getSharedPreferences("MySListPreferences",
 
                 Context.MODE_PRIVATE).getString("sortfield", "stationname");
 
-        String sortOrder = getSharedPreferences("MyContactListPreferences",
+        String sortOrder = getSharedPreferences("MySListPreferences",
 
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
+
+        GasDataSource ds = new GasDataSource(this);
 
         try{
             ds.open();
@@ -119,7 +121,8 @@ public class GasListActivity extends AppCompatActivity {
 
         }
         catch(Exception e){
-            Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error retrieving stations", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error retrieving stations", Toast.LENGTH_LONG).show();
         }
 
 

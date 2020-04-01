@@ -59,13 +59,13 @@ public class GasSettingsActivity extends AppCompatActivity {
     }
 
     private void initSettings() {
-        String sortBy = getSharedPreferences("MyStationListPreferences",
+        String sortBy = getSharedPreferences("MySListPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "stationname");
 
-        String sortOrder = getSharedPreferences("MyStationListPreferences",
+        String sortOrder = getSharedPreferences("MySListPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
-        String sortColor = getSharedPreferences("MyContactListPreferences",
+        String sortColor = getSharedPreferences("MySListPreferences",
                 Context.MODE_PRIVATE).getString("sortColr","default");
 
         RadioButton rbName = (RadioButton) findViewById(R.id.radioName);
@@ -85,11 +85,12 @@ public class GasSettingsActivity extends AppCompatActivity {
         RadioButton rbAscending = (RadioButton) findViewById(R.id.radioAscending);
         RadioButton rbDescending = (RadioButton) findViewById(R.id.radioDescending);
 
-        if (sortOrder.equalsIgnoreCase("DESC")) {
-            rbDescending.setChecked(true);
+        if (sortOrder.equalsIgnoreCase("ASC")) {
+            rbAscending.setChecked(true);
+
 
         } else {
-            rbAscending.setChecked(true);
+            rbDescending.setChecked(true);
         }
 
         RadioButton red = (RadioButton) findViewById(R.id.radioRed);
@@ -122,17 +123,17 @@ public class GasSettingsActivity extends AppCompatActivity {
                 RadioButton rbName = (RadioButton) findViewById(R.id.radioName);
                 RadioButton rbCity = (RadioButton) findViewById(R.id.radioCity);
                 if (rbName.isChecked()) {
-                    getSharedPreferences("MyContactListPreferences",
+                    getSharedPreferences("MySListPreferences",
                             Context.MODE_PRIVATE).edit()
                             .putString("sortfield", "stationname").commit();
                 }
                 else if (rbCity.isChecked()) {
-                    getSharedPreferences("MyContactListPreferences",
+                    getSharedPreferences("MySListPreferences",
                             Context.MODE_PRIVATE).edit()
                             .putString("sortfield", "city").commit();
                 }
                 else {
-                    getSharedPreferences("MyContactListPreferences",
+                    getSharedPreferences("MySListPreferences",
                             Context.MODE_PRIVATE).edit()
                             .putString("sortfield", "distance").commit();
                 }
