@@ -46,17 +46,22 @@ public class GasAdapter extends ArrayAdapter<Gas> {
             }
             TextView gasNumber = (TextView) v.findViewById(R.id.textPhoneNumber);
             TextView gasStreetAdd = (TextView) v.findViewById(R.id.textStreetAddress);
+            TextView gasRPrice = (TextView) v.findViewById(R.id.textRGas);
             TextView gasState = (TextView) v.findViewById(R.id.textState);
             TextView gasZip = (TextView) v.findViewById(R.id.textZIP);
+            TextView gasDistance = (TextView) v.findViewById(R.id.textDistance);
 
             Button b = (Button) v.findViewById(R.id.buttonDeleteGas);
 
 
             gasName.setText(gas.getStationName());
             gasNumber.setText("Phone: "+ gas.getPhoneNumber());
-            gasStreetAdd.setText(gas.getDistance());
+            gasStreetAdd.setText(gas.getStreetAddress());
             gasState.setText(gas.getState());
-            gasZip.setText(gas.getDistance());
+            gasZip.setText(gas.getZipCode());
+            gasDistance.setText(gas.getDistance());
+            gasRPrice.setText(gas.getrPrice());
+
 
 
 /*

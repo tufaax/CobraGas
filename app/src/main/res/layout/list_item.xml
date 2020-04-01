@@ -43,7 +43,7 @@
             android:text="Phone Number" />
 
         <TextView
-            android:id="@+id/textCellNumber"
+            android:id="@+id/textDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textPhoneNumber"
@@ -51,7 +51,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:text="Cell Name" />
+            android:text="Distance" />
 
         <Button
             android:id="@+id/buttonDeleteGas"
@@ -75,7 +75,7 @@
             android:id="@+id/textStreetAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textCellNumber"
+            android:layout_below="@id/textDistance"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="13dp"
             android:text="Street Address" />
@@ -89,6 +89,16 @@
             android:layout_toEndOf="@+id/textStreetAddress"
             android:layout_toRightOf="@+id/textStreetAddress"
             android:text="State" />
+
+        <TextView
+            android:id="@+id/textRGas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textState"
+            android:layout_alignRight="@+id/textZIP"
+            android:layout_marginRight="-116dp"
+            android:layout_marginBottom="2dp"
+            android:text="Regular Gas" />
 
     </RelativeLayout>
 </RelativeLayout>
