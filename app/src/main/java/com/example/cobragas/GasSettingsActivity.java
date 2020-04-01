@@ -22,7 +22,9 @@ public class GasSettingsActivity extends AppCompatActivity {
         initMapButton();
         initSettingsButton();
         initSettings();
+        initSortOrderClick();
         initSortByClick();
+        initSetColor();
 
 
     }
@@ -58,6 +60,27 @@ public class GasSettingsActivity extends AppCompatActivity {
         ibSettings.setEnabled(false);
     }
 
+    private void initSortOrderClick() {
+        RadioGroup rgSortOrder = (RadioGroup) findViewById(R.id.radioGroupSortOrder);
+        rgSortOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton rbAscending = (RadioButton) findViewById(R.id.radioAscending);
+                if (rbAscending.isChecked()) {
+                    getSharedPreferences("MySListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortorder", "ASC").commit();
+                }
+                else {
+                    getSharedPreferences("MySListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortorder", "DESC").commit();
+                }
+            }
+        });
+    }
+
     private void initSettings() {
         String sortBy = getSharedPreferences("MySListPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "stationname");
@@ -87,8 +110,6 @@ public class GasSettingsActivity extends AppCompatActivity {
 
         if (sortOrder.equalsIgnoreCase("ASC")) {
             rbAscending.setChecked(true);
-
-
         } else {
             rbDescending.setChecked(true);
         }
@@ -96,24 +117,62 @@ public class GasSettingsActivity extends AppCompatActivity {
         RadioButton red = (RadioButton) findViewById(R.id.radioRed);
         RadioButton blue = (RadioButton)findViewById(R.id.radioBlue);
         RadioButton Default =(RadioButton)findViewById(R.id.radioDefault);
-        ScrollView setting =findViewById(R.id.settingsScroll);
         if(sortColor.equalsIgnoreCase("red")){
             red.setChecked(true);
             ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
-            //settings.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            settings.setBackgroundColor(getResources().getColor(R.color.rb_red));
         }
 
         else if (sortColor.equalsIgnoreCase("blue")) {
             blue.setChecked(true);
             ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
-            settings.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            settings.setBackgroundColor(getResources().getColor(R.color.rb_blue));
         }
         else if (sortColor.equalsIgnoreCase("default")) {
             Default.setChecked(true);
             ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
-            settings.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            settings.setBackgroundColor(getResources().getColor(R.color.rb_default));
         }
     }
+
+    private void initSetColor() {
+        RadioGroup rgSetColor = (RadioGroup) findViewById(R.id.colorGroup);
+        rgSetColor.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton rbRed = (RadioButton) findViewById(R.id.radioRed);
+                RadioButton rbBlue = (RadioButton) findViewById(R.id.radioBlue);
+                RadioButton rbDefault=(RadioButton)findViewById(R.id.radioDefault);
+
+                ScrollView settings= (ScrollView) findViewById(R.id.settingsScroll);
+
+                if (rbRed.isChecked()) {
+                    getSharedPreferences("MySListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortColr", "red").commit();
+                    settings.setBackgroundColor(getResources().getColor(R.color.rb_red));
+
+
+                }
+                else if (rbBlue.isChecked()) {
+                    getSharedPreferences("MySListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortColr", "blue").commit();
+                    settings.setBackgroundColor(getResources().getColor(R.color.rb_blue));
+                }
+                else if ( rbDefault.isChecked()){
+                    getSharedPreferences("MySListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortColr", "default").commit();
+                    settings.setBackgroundColor(getResources().getColor(R.color.rb_default));
+                }
+            }
+        });
+
+
+
+    }
+
     private void initSortByClick() {
         RadioGroup rgSortBy = (RadioGroup) findViewById(R.id.radioGroupSortBy);
         rgSortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -125,17 +184,17 @@ public class GasSettingsActivity extends AppCompatActivity {
                 if (rbName.isChecked()) {
                     getSharedPreferences("MySListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "stationname").commit();
+                            .putString("sortfield", "stationname").apply();
                 }
                 else if (rbCity.isChecked()) {
                     getSharedPreferences("MySListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "city").commit();
+                            .putString("sortfield", "city").apply();
                 }
                 else {
                     getSharedPreferences("MySListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "distance").commit();
+                            .putString("sortfield", "distance").apply();;
                 }
             }
         });
