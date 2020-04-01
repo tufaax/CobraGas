@@ -1,34 +1,36 @@
 package com.example.cobragas;
 
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.text.format.DateFormat;
+import android.telephony.mbms.StreamingServiceInfo;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.RandomAccess;
 
 public class GasListActivity extends AppCompatActivity {
 
-    ArrayList<Gas> gas;
+    ArrayList<Gas> contacts;
 
     boolean isDeleting = false;
-
-    private Gas currentStation;
 
     GasAdapter adapter;
 
@@ -46,7 +48,7 @@ public class GasListActivity extends AppCompatActivity {
 
         String sortBy = getSharedPreferences("MyContactListPreferences",
 
-                Context.MODE_PRIVATE).getString("sortfield", "stationname");
+                Context.MODE_PRIVATE).getString("sortfield", "contactname");
 
         String sortOrder = getSharedPreferences("MyContactListPreferences",
 
@@ -54,10 +56,10 @@ public class GasListActivity extends AppCompatActivity {
 
         try{
             ds.open();
-            gas = ds.getStations(sortBy, sortOrder);
+            contacts = ds.getStations(sortBy, sortOrder);
             ds.close();
             ListView listView = (ListView)findViewById(R.id.lvContacts);
-            adapter = new GasAdapter(this, gas);
+            adapter = new GasAdapter(this, contacts);
             listView.setAdapter(adapter);
 
         }
@@ -66,9 +68,24 @@ public class GasListActivity extends AppCompatActivity {
         }
 
 
+        BroadcastReceiver batteryReciever = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                double batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
+                double levelScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
+                int batteryPercent = (int) Math.floor(batteryLevel / levelScale * 100);
+                TextView textBatteryState = (TextView)findViewById(R.id.textBatteryLevel);
+                textBatteryState.setText(batteryPercent + "%");
+            }
+        };
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryReciever, filter);
+
         initDeleteButton();
         initItemClick();
         initAddContactButton();
+
     }
 
     @Override
@@ -88,11 +105,11 @@ public class GasListActivity extends AppCompatActivity {
 
         try{
             ds.open();
-            gas = ds.getStations(sortBy, sortOrder);
+            contacts = ds.getStations(sortBy, sortOrder);
             ds.close();
-            if(gas.size() > 0){
+            if(contacts.size() > 0){
                 ListView listView = (ListView)findViewById(R.id.lvContacts);
-                adapter = new GasAdapter(this, gas);
+                adapter = new GasAdapter(this, contacts);
                 listView.setAdapter(adapter);
             }
             else{
@@ -108,9 +125,7 @@ public class GasListActivity extends AppCompatActivity {
 
 
     }
-
-
-    private void initListButton() {
+    private void initListButton(){
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +137,7 @@ public class GasListActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void initMapButton() {
+    private void initMapButton(){
         ImageButton ibMap = (ImageButton) findViewById(R.id.imageButtonMap);
         ibMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,8 +149,7 @@ public class GasListActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void initSettingsButton() {
+    private void initSettingsButton(){
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonSettings);
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +167,7 @@ public class GasListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
-                Gas selectedContact = gas.get(position);
+                Gas selectedContact = contacts.get(position);
                 if(isDeleting){
                     adapter.showDelete(position, itemClicked, GasListActivity.this, selectedContact);
                 }
@@ -194,7 +207,5 @@ public class GasListActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 }

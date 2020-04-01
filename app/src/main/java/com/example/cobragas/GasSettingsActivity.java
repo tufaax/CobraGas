@@ -32,7 +32,7 @@ public class GasSettingsActivity extends AppCompatActivity {
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GasSettingsActivity.this, GasActivity.class);
+                Intent intent = new Intent(GasSettingsActivity.this, GasListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
@@ -59,10 +59,10 @@ public class GasSettingsActivity extends AppCompatActivity {
     }
 
     private void initSettings() {
-        String sortBy = getSharedPreferences("MyContactListPreferences",
-                Context.MODE_PRIVATE).getString("sortfield", "contactname");
+        String sortBy = getSharedPreferences("MyStationListPreferences",
+                Context.MODE_PRIVATE).getString("sortfield", "stationname");
 
-        String sortOrder = getSharedPreferences("MyContactListPreferences",
+        String sortOrder = getSharedPreferences("MyStationListPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
         String sortColor = getSharedPreferences("MyContactListPreferences",
@@ -72,7 +72,7 @@ public class GasSettingsActivity extends AppCompatActivity {
         RadioButton rbCity = (RadioButton) findViewById(R.id.radioCity);
         RadioButton rbDistance = (RadioButton) findViewById(R.id.radioDistance);
 
-        if (sortBy.equalsIgnoreCase("contactname")) {
+        if (sortBy.equalsIgnoreCase("stationname")) {
             rbName.setChecked(true);
         } else if (sortBy.equalsIgnoreCase("city")) {
             rbCity.setChecked(true);
@@ -85,10 +85,11 @@ public class GasSettingsActivity extends AppCompatActivity {
         RadioButton rbAscending = (RadioButton) findViewById(R.id.radioAscending);
         RadioButton rbDescending = (RadioButton) findViewById(R.id.radioDescending);
 
-        if (sortOrder.equalsIgnoreCase("ASC")) {
-            rbAscending.setChecked(true);
-        } else {
+        if (sortOrder.equalsIgnoreCase("DESC")) {
             rbDescending.setChecked(true);
+
+        } else {
+            rbAscending.setChecked(true);
         }
 
         RadioButton red = (RadioButton) findViewById(R.id.radioRed);
@@ -123,7 +124,7 @@ public class GasSettingsActivity extends AppCompatActivity {
                 if (rbName.isChecked()) {
                     getSharedPreferences("MyContactListPreferences",
                             Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "contactname").commit();
+                            .putString("sortfield", "stationname").commit();
                 }
                 else if (rbCity.isChecked()) {
                     getSharedPreferences("MyContactListPreferences",
