@@ -7,9 +7,11 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +27,8 @@ public class GasListActivity extends AppCompatActivity {
     ArrayList<Gas> gas;
 
     boolean isDeleting = false;
+
+    private Gas currentStation;
 
     GasAdapter adapter;
 
@@ -61,20 +65,6 @@ public class GasListActivity extends AppCompatActivity {
             Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
         }
 
-
-        BroadcastReceiver batteryReciever = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                double batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
-                double levelScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
-                int batteryPercent = (int) Math.floor(batteryLevel / levelScale * 100);
-                TextView textBatteryState = (TextView)findViewById(R.id.textBatteryLevel);
-                textBatteryState.setText(batteryPercent + "%");
-            }
-        };
-
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(batteryReciever, filter);
 
         initDeleteButton();
         initItemClick();
@@ -170,7 +160,7 @@ public class GasListActivity extends AppCompatActivity {
                 }
                 else{
                     Intent intent = new Intent(GasListActivity.this, GasActivity.class);
-                    intent.putExtra("contactid", selectedContact.getStationID());
+                    intent.putExtra("stationsid", selectedContact.getStationID());
                     startActivity(intent);
                 }
             }
@@ -204,6 +194,7 @@ public class GasListActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

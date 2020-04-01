@@ -24,6 +24,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -68,11 +69,12 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
     Sensor magnetometer;
     TextView textDirection;
 
+    double longitude, latitude;
+
 
     LocationListener networkListener;
     LocationManager locationManager;
     LocationListener gpsListener;
-
 
 
     @Override
@@ -85,15 +87,13 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
         try {
             GasDataSource ds = new GasDataSource(GasMapActivity.this);
             ds.open();
-            if(extras != null){
+            if (extras != null) {
                 currentStation = ds.getSpecificStation(extras.getInt("stationsid"));
-            }
-            else {
+            } else {
                 stations = ds.getStations("stationname", "ASC");
             }
             ds.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "Contact (s) could not be retrieved.", Toast.LENGTH_LONG).show();
         }
         SupportMapFragment mapFragment = (SupportMapFragment)
@@ -101,7 +101,7 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
         createLocationRequest();
 
-        if(mGoogleApiClient == null) {
+        if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -112,7 +112,7 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
         /*
          * This section is for the compass sensor
          */
-        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
@@ -143,6 +143,7 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
     private SensorEventListener mySensorEventListener = new SensorEventListener() {
         float[] accelerometerValues;
         float[] magneticValues;
+
         @Override
         public void onSensorChanged(SensorEvent event) {
 
@@ -181,13 +182,15 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
                     textDirection.setText(direction);
                 }
             }
-        };
+        }
+
+        ;
+
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
         }
     };
-
 
 
     @Override
@@ -245,7 +248,7 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
         });
     }
 
-    protected void onStart(){
+    protected void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
     }
@@ -310,9 +313,9 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
         int measuredWidth = size.x;
         int measuredHeight = size.y;
 
-        if(stations.size() > 0){
+        if (stations.size() > 0) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for(int i = 0; i< stations.size();i++){
+            for (int i = 0; i < stations.size(); i++) {
                 currentStation = stations.get(i);
 
                 Geocoder geo = new Geocoder(this);
@@ -323,9 +326,9 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
                         currentStation.getState() + " " +
                         currentStation.getZipCode();
 
-                try{
+                try {
                     addresses = geo.getFromLocationName(address, 1);
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -333,11 +336,58 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
                         addresses.get(0).getLongitude());
                 builder.include(point);
 
+                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+
+                float[] result = new float[10];
+                Location.distanceBetween(location.getLatitude(),location.getLongitude()
+                ,addresses.get(0).getLatitude(),
+                        addresses.get(0).getLongitude(), result);
+
+                float a = Math.round((result[0] / 1609.0) * 100.0) / 100.0f;
+
                 gMap.addMarker(new MarkerOptions().position(point)
-                        .title(currentStation.getStationName()).snippet(address));
+                        .title(currentStation.getStationName()).snippet(result[0] + ""));
+
+
+                currentStation.setDistance(a + " Miles");
+
+                boolean wasSuccessful = false;
+                GasDataSource ds = new GasDataSource(GasMapActivity.this);
+                try {
+                    ds.open();
+
+                    if (currentStation.getStationID() == -1) {
+                        wasSuccessful = ds.insertStation(currentStation);
+                        int newId = ds.getLastStationId();
+                        currentStation.setStationID(newId);
+                    } else {
+                        wasSuccessful = ds.updateStation(currentStation);
+                    }
+                    ds.close();
+                }
+                catch (Exception e) {
+                    wasSuccessful = false;
+                    Log.w("Not Working","hi");
+                }
+
+
             }
             gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),
                     measuredWidth, measuredHeight, 450));
+
+
 
         }
         else {
@@ -503,9 +553,11 @@ public class GasMapActivity extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(getBaseContext(), "Lat: " +location.getLatitude() +
-                        " Long: " + location.getLongitude() +
-                        "Accuracy: " +location.getAccuracy(),
-                Toast.LENGTH_LONG).show();
+
+
+        //Toast.makeText(getBaseContext(), "Lat: " +location.getLatitude() +
+                    //    " Long: " + location.getLongitude() +
+                     //   "Accuracy: " +location.getAccuracy(),
+               // Toast.LENGTH_LONG).show();
     }
 }

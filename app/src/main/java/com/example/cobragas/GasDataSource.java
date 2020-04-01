@@ -45,13 +45,7 @@ public class GasDataSource {
             initialValues.put("rprice", c.getrPrice());
             initialValues.put("pprice", c.getpPrice());
             initialValues.put("dprice", c.getdPrice());
-
-            if(c.getIcon() != null) {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                c.getIcon().compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] photo = baos.toByteArray();
-                initialValues.put("icon", photo);
-            }
+            initialValues.put("distance", c.getDistance());
 
             didSucceed = database.insert("stations", null, initialValues) > 0;
 
@@ -78,6 +72,7 @@ public class GasDataSource {
             updateValues.put("rprice", c.getrPrice());
             updateValues.put("pprice", c.getpPrice());
             updateValues.put("dprice", c.getdPrice());
+            updateValues.put("distance", c.getDistance());
 
             didSucceed = database.update("stations", updateValues, "_id=" + rowId, null) > 0;
         }
@@ -134,6 +129,11 @@ public class GasDataSource {
                 newStation.setState(cursor.getString(4));
                 newStation.setZipCode(cursor.getString(5));
                 newStation.setPhoneNumber(cursor.getString(6));
+                newStation.setrPrice(cursor.getString(7));
+                newStation.setpPrice(cursor.getString(8));
+                newStation.setdPrice(cursor.getString(9));
+                newStation.setDistance(cursor.getString(10));
+
                 gases.add(newStation);
                 cursor.moveToNext();
 
@@ -163,6 +163,7 @@ public class GasDataSource {
             contact.setrPrice(cursor.getString(7));
             contact.setpPrice(cursor.getString(8));
             contact.setdPrice(cursor.getString(9));
+            contact.setDistance(cursor.getString(10));
 
             cursor.close();
         }

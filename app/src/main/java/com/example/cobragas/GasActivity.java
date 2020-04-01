@@ -32,11 +32,20 @@ public class GasActivity extends AppCompatActivity {
         initListButton();
         initMapButton();
         initSettingsButton();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            initContact((extras.getInt("stationsid")));
+        }
+        else{
+            currentStation = new Gas();
+        }
         initTextChangedEvents();
         initSaveButton();
         initToggleButton();
 
-        currentStation = new Gas();
+
+
     }
     private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
@@ -93,6 +102,35 @@ public class GasActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void initContact(int id) {
+
+        GasDataSource ds = new GasDataSource(GasActivity.this);
+        try {
+            ds.open();
+            currentStation = ds.getSpecificStation(id);
+            ds.close();
+        }
+        catch (Exception e) {
+            Toast.makeText(this, "Load Contact Failed", Toast.LENGTH_LONG).show();
+        }
+
+        EditText editName = (EditText) findViewById(R.id.editGasName);
+        EditText editAddress = (EditText) findViewById(R.id.editStreet);
+        EditText editCity = (EditText) findViewById(R.id.editCity);
+        EditText editState = (EditText) findViewById(R.id.editState);
+        EditText editZipCode = (EditText) findViewById(R.id.editZip);
+        EditText editCell = (EditText) findViewById(R.id.editCell);
+
+
+        editName.setText(currentStation.getStationName());
+        editAddress.setText(currentStation.getStreetAddress());
+        editCity.setText(currentStation.getCity());
+        editState.setText(currentStation.getState());
+        editZipCode.setText(currentStation.getZipCode());
+        editCell.setText(currentStation.getPhoneNumber());
+    }
+
 
     private  void setForEditing(boolean enabled){
         EditText editName = (EditText) findViewById(R.id.editGasName);

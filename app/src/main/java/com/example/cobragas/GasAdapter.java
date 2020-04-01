@@ -54,9 +54,10 @@ public class GasAdapter extends ArrayAdapter<Gas> {
 
             gasName.setText(gas.getStationName());
             gasNumber.setText("Phone: "+ gas.getPhoneNumber());
-            gasStreetAdd.setText(gas.getStreetAddress());
+            gasStreetAdd.setText(gas.getDistance());
             gasState.setText(gas.getState());
-            gasZip.setText(gas.getZipCode());
+            gasZip.setText(gas.getDistance());
+
 
 /*
             Log.w(gas.getBff() +"", "hello");

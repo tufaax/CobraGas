@@ -16,7 +16,9 @@ public class Gas {
         private String rPrice;
         private String pPrice;
         private String dPrice;
-        private Bitmap icon;
+        private String distance;
+
+
 
 
 
@@ -85,12 +87,12 @@ public class Gas {
             return dPrice;
         }
 
-    public Bitmap getIcon() {
-        return icon;
+    public String getDistance() {
+        return distance;
     }
 
-    public void setIcon(Bitmap icon) {
-        this.icon = icon;
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
 }

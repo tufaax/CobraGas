@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class GasDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "stations.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database creation sql statement
     private static final String CREATE_TABLE_STATIONS =
@@ -17,7 +17,7 @@ public class GasDBHelper extends SQLiteOpenHelper {
                     + "stationname text not null, streetaddress text, "
                     + "city text, state text, zipcode text, "
                     + "phonenumber text, rprice text, "
-                    + "pprice text, dprice text, icon blob);";
+                    + "pprice text, dprice text, distance text);";
 
     public GasDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
