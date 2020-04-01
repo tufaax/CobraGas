@@ -32,7 +32,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GasListActivity">
+        <activity android:name=".GasLogin"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,11 +44,11 @@
         <activity android:name=".GasActivity"/>
         <activity android:name=".GasSettingsActivity"/>
         <activity android:name=".GasMapActivity"/>
-        <activity android:name=".GasLogin"/>
+        <activity android:name=".GasListActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDKczJWqJbhziRASqMKhm6CMTTJrNKsFfE"/>
+            android:value="AIzaSyB39-otjDZ4cJ_ahMsSa8mRXUldoz6rbJA"/>
 
     </application>
 
